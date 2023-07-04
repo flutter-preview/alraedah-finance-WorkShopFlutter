@@ -26,12 +26,12 @@ jobs:
           cd ..
           zip -r app.ipa Payload
 
-      - name: collect ipa artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: release-ipa-apk
-          # Path to the release files
-          path: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
+    #   - name: collect ipa artifacts
+        # uses: actions/upload-artifact@v2
+        # with:
+        #   name: release-ipa-apk
+        #   # Path to the release files
+        #   path: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
 
       - name: Push to Releases
         uses: ncipollo/release-action@v1
@@ -39,6 +39,7 @@ jobs:
           artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          name: release-ipa-apk
 
   release:
     name: Release ipa to Firebase
