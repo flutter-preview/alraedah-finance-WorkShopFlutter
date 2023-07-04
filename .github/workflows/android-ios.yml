@@ -26,20 +26,27 @@ jobs:
           cd ..
           zip -r app.ipa Payload
 
-    #   - name: collect ipa artifacts
-        # uses: actions/upload-artifact@v2
-        # with:
-        #   name: release-ipa-apk
-        #   # Path to the release files
-        #   path: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
-
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
+      - name: collect apk artifacts
+        uses: actions/upload-artifact@v2
         with:
-          artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-          name: release-ipa-apk
+          name: release-apk
+          # Path to the release files
+          path: "build/app/outputs/apk/debug/*"
+
+      - name: collect ipa artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-ipa
+          # Path to the release files
+          path: "build/ios/iphoneos/app.ipa"
+          
+    #   - name: Push to Releases
+    #     uses: ncipollo/release-action@v1
+    #     with:
+    #       artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
+    #       tag: v1.0.${{ github.run_number }}
+    #       token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+    #       name: release-ipa-apk
 
   release:
     name: Release ipa to Firebase
@@ -49,11 +56,16 @@ jobs:
     
     # Retrieve ipa file from GitHub artifacts
     - uses: actions/checkout@v2
-    - name: Get release-ipa-apk from artifacts
+    - name: Get release-apk from artifacts
       uses: actions/download-artifact@v2
       with:
-        name: release-ipa-apk
-
+        name: release-apk
+    
+    - name: Get release-ipa from artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: release-ipa
+  
     # Upload ipa file to Fiebase
     - name: Upload artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -61,4 +73,4 @@ jobs:
         appId: ${{secrets.FIREBASE_IOS_APP_ID}}
         token: ${{secrets.FIREBASE_TOKEN}}
         groups: ios-developers
-        file: "app.ipa,app-arm64-v8a-debug.apk"
+        file: "app-arm64-v8a-debug.apk"
