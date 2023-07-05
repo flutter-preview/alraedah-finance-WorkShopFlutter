@@ -17,3 +17,12 @@ jobs:
 
     - name: list downloaded release
       run: ls -ltrh
+    
+    # Upload ipa file to Fiebase
+    - name: Upload APK artifact to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action
+      with:
+        appId: ${{secrets.FIREBASE_IOS_APP_ID}}
+        serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+        groups: testers
+        file: "app-arm64-v8a-debug.apk"
