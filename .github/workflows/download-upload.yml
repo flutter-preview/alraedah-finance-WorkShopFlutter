@@ -3,14 +3,11 @@ name: "Download Release and Upload"
 on: workflow_dispatch
 
 jobs:
-  release:
-    name: Download Release and Upload
+  download:
     runs-on: ubuntu-latest
     steps:
-    
     # Retrieve ipa file from GitHub artifacts
-    - id: download-release-asset
-      name: Download release asset
+    - name: Download release asset
       uses: dsaltares/fetch-gh-release-asset@master
       with:
         version: tags/v1.0.6
