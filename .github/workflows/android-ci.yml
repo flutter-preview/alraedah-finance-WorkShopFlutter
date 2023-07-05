@@ -12,8 +12,8 @@ jobs:
       uses: dsaltares/fetch-gh-release-asset@master
       with:
         version: tags/v1.0.6
-        file: app-x86_64-debug.apk
-        target: app-x86_64-debug.apk
+        file: app.ipa
+        target: app.ipa
         token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
 
     - name: list downloaded release
@@ -23,7 +23,7 @@ jobs:
     - name: Upload APK artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
-        appId: '1:660320019465:android:de2deaca08e9b9916a44d8'
+        appId: '1:660320019465:ios:7f27611a70015a496a44d8'
         token: '1//03r5lEitU8PmGCgYIARAAGAMSNwF-L9IrUB_QBr19VQnATYdw6Tymm5B-JZJT_OHKvacP51oztAM3JEmoDfI6e84zFo0trWy0d48'
         groups: testers
-        file: "app-x86_64-debug.apk"
+        file: "app.ipa"
