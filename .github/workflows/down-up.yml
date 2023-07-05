@@ -1,0 +1,16 @@
+name: "Download Release and Upload"
+
+on: workflow_dispatch
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+    # Retrieve ipa file from GitHub artifacts
+    - name: Download release asset
+      uses: dsaltares/fetch-gh-release-asset@master
+      with:
+        version: tags/v1.0.6
+        file: app-x86_64-debug.apk
+        target: app-x86_64-debug.apk
+        token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
