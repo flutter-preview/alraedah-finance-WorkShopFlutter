@@ -22,7 +22,7 @@ jobs:
     - name: Upload APK artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
-        appId: ${{secrets.FIREBASE_IOS_APP_ID}}
+        appId: '1:660320019465:android:9119132be7f7f3f36a44d8'
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         groups: testers
         file: "app-arm64-v8a-debug.apk"
