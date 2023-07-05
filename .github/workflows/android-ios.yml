@@ -40,13 +40,13 @@ jobs:
           # Path to the release files
           path: "build/ios/iphoneos/app.ipa"
           
-    #   - name: Push to Releases
-    #     uses: ncipollo/release-action@v1
-    #     with:
-    #       artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
-    #       tag: v1.0.${{ github.run_number }}
-    #       token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-    #       name: release-ipa-apk
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          name: release-ipa-apk
 
   release:
     name: Release apk and ipa to Firebase
@@ -75,10 +75,10 @@ jobs:
         groups: testers
         file: "app-arm64-v8a-debug.apk"
 
-    - name: Upload IPA artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
-      with:
-        appId: ${{secrets.FIREBASE_IOS_APP_ID}}
-        serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-        groups: testers
-        file: "app.ipa"  
+    # - name: Upload IPA artifact to Firebase App Distribution
+    #   uses: wzieba/Firebase-Distribution-Github-Action@v1
+    #   with:
+    #     appId: ${{secrets.FIREBASE_IOS_APP_ID}}
+    #     serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+    #     groups: testers
+    #     file: "app.ipa"  
