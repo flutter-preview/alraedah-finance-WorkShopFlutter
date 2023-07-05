@@ -75,10 +75,10 @@ jobs:
         groups: testers
         file: "app-x86_64-debug.apk"
 
-    # - name: Upload IPA artifact to Firebase App Distribution
-    #   uses: wzieba/Firebase-Distribution-Github-Action@v1
-    #   with:
-    #     appId: ${{secrets.FIREBASE_IOS_APP_ID}}
-    #     serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-    #     groups: testers
-    #     file: "app.ipa"  
+    - name: Upload IPA artifact to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: '1:660320019465:ios:7f27611a70015a496a44d8'
+        token: '1//03r5lEitU8PmGCgYIARAAGAMSNwF-L9IrUB_QBr19VQnATYdw6Tymm5B-JZJT_OHKvacP51oztAM3JEmoDfI6e84zFo0trWy0d48'
+        groups: testers
+        file: "app.ipa"
