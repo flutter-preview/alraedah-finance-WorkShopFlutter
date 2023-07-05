@@ -1,48 +1,16 @@
-name: Flutter Android CI
-
-# This workflow is triggered on pushes to the repository.
+name: "Download Release and Upload"
 
 on: workflow_dispatch
-    
-# on: push    # Default will running for every branch.
-    
+
 jobs:
-  build:
-    # This job will run on ubuntu virtual machine
+  download:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v1
-        - uses: actions/setup-java@v1
-          with:
-            java-version: '12.x'
-        - uses: subosito/flutter-action@v1
-          # with:
-          #   flutter-version: '2.2.0'
-        - run: flutter pub get
-        - run: flutter test
-        - run: flutter build apk --debug --split-per-abi
-        # - run: |
-        #     flutter build ios --no-codesign
-        #     cd build/ios/iphoneos
-        #     mkdir Payload
-        #     cd Payload
-        #     ln -s ../Runner.app
-        #     cd ..
-        #     zip -r app.ipa Payload
-        - name: Push to Releases
-          uses: ncipollo/release-action@v1
-          with:
-            artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
-            tag: v1.0.${{ github.run_number }}
-            token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-
-        - name: list apk
-          run: ls -ltrh build/app/outputs/apk/debug/
-
-        - name: upload artifact to Firebase App Distribution
-          uses: wzieba/Firebase-Distribution-Github-Action@v1
-          with:
-            appId: ${{ secrets.FIREBASE_APP_ID }}
-            token: ${{ secrets.FIREBASE_TOKEN }}
-            groups: testers
-            file: build/app/outputs/apk/debug/app-arm64-v8a-debug.apk
+    # Retrieve ipa file from GitHub artifacts
+    - name: Download release asset
+      uses: dsaltares/fetch-gh-release-asset@master
+      with:
+        version: tags/v1.0.6
+        file: app-x86_64-debug.apk
+        target: app-x86_64-debug.apk
+        token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
