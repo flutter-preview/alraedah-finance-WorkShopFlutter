@@ -20,7 +20,7 @@ jobs:
     
     # Upload ipa file to Fiebase
     - name: Upload APK artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
         appId: ${{secrets.FIREBASE_IOS_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
