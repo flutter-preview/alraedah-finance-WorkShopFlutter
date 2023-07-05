@@ -14,3 +14,6 @@ jobs:
         file: app-x86_64-debug.apk
         target: app-x86_64-debug.apk
         token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+    - name: list downloaded release
+      run: ls -ltrh
